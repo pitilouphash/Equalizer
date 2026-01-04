@@ -1,0 +1,17 @@
+[Unit]
+Description=Equalizer main service
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/equalizer/equalizer.env
+WorkingDirectory=/opt/equalizer
+ExecStart=/opt/equalizer/venv/bin/python /opt/equalizer/main.py
+ExecStartPre=/bin/mkdir -p /var/log/equalizer
+Restart=on-failure
+RestartSec=5s
+StandardOutput=append:/var/log/equalizer/equalizer.log
+StandardError=append:/var/log/equalizer/equalizer.log
+
+[Install]
+WantedBy=multi-user.target
