@@ -1,0 +1,14 @@
+/var/log/equalizer/equalizer.log {
+    su root root
+    create 0640 root root
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+        systemctl kill -s SIGUSR1 --kill-who=main equalizer.service >/dev/null 2>&1 || true
+    endscript
+}
